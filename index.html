@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta del Bar Vegas</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #90EE90; /* Fondo verde claro */
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #228B22; /* Verde forestal */
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin: 10px 0 0;
+            font-size: 1.8em;
+            color: black; /* Texto en negro */
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: flex-start;
+            background-color: #32CD32; /* Verde lima */
+            padding: 10px;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .tabs button {
+            background-color: transparent;
+            border: none;
+            color: black; /* Texto en negro */
+            padding: 10px 15px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .tabs button:hover {
+            background-color: #228B22; /* Verde forestal */
+        }
+
+        .tabs button.active {
+            background-color: #228B22; /* Verde forestal */
+            color: white; /* Texto en blanco cuando está activo */
+        }
+
+        .container {
+            padding: 10px;
+        }
+
+        .tab-content {
+            display: none; /* Oculta el contenido de las pestañas por defecto */
+        }
+
+        .tab-content.active {
+            display: block; /* Muestra el contenido de la pestaña activa */
+        }
+
+        .menu-item {
+            background-color: #fff;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #32CD32;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(50, 205, 50, 0.4), transparent);
+            animation: bordeParpadeante 2s infinite;
+        }
+
+        @keyframes bordeParpadeante {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        .menu-item h2 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #228B22;
+        }
+
+        .menu-item p {
+            margin: 5px 0;
+            font-size: 1em;
+            color: #555;
+        }
+
+        .disponible {
+            margin-left: auto;
+            background-color: #32CD32;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .agotado {
+            margin-left: auto;
+            background-color: #FF0000;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .informacion {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .informacion h2 {
+            color: #228B22;
+            margin-top: 0;
+        }
+
+        .informacion p {
+            font-size: 1em;
+            color: #555;
+        }
+
+        @media (max-width: 600px) {
+            header img {
+                width: 80px;
+                height: 80px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+            .tabs button {
+                padding: 8px 12px;
+                font-size: 0.9em;
+            }
+            .menu-item h2 {
+                font-size: 1em;
+            }
+            .menu-item p {
+                font-size: 0.9em;
+            }
+            .disponible, .agotado {
+                font-size: 0.8em;
+                padding: 4px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="logo.png" alt="Logo Bar Vegas">
+        <h1>Bar Vegas</h1>
+    </header>
+
+    <!-- Pestañas -->
+    <div class="tabs">
+        <button onclick="openTab('cocteles')" class="active">Cócteles</button>
+        <button onclick="openTab('tragos')">Tragos</button>
+        <button onclick="openTab('botellas')">Botellas</button>
+        <button onclick="openTab('bebidas')">Bebidas</button>
+        <button onclick="openTab('picadera')">Picadera</button>
+        <button onclick="openTab('ofertas')">Ofertas</button>
+        <button onclick="openTab('informacion')">Información</button>
+    </div>
+
+    <!-- Contenido de las pestañas -->
+    <div class="container">
+        <!-- Pestaña de Información (fija) -->
+        <div id="informacion" class="tab-content">
+            <div class="informacion">
+                <h2>Información</h2>
+                <p><strong>Teléfono:</strong> +53 55774357</p>
+                </strong> +53 55774357</p>
+                <p><strong>Horario:</strong> Lunes-Jueves 1:00PM-10:00PM</p>
+                <p><strong>Viernes-Domingo 1:00PM-4:00AM</strong></p>
+                <p><strong>Dirección:</strong> Ave 51 64/66, esquina 51 y 66, Consolación del Sur, Pinar del Río, Cuba </p>
+            </div>
+        </div>
+
+        <!-- Las demás pestañas se generarán dinámicamente -->
+    </div>
+
+    <!-- Incluir la librería SheetJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+    <script>
+        // Función para cargar el archivo Excel automáticamente
+        function loadExcel() {
+            const url = "carta.xlsx"; // Ruta al archivo Excel en la raíz
+
+            fetch(url)
+                .then(response => response.arrayBuffer())
+                .then(data => {
+                    const workbook = XLSX.read(new Uint8Array(data), { type: 'array' });
+                    processExcel(workbook);
+                })
+                .catch(error => {
+                    console.error("Error al cargar el archivo Excel:", error);
+                });
+        }
+
+        // Función para procesar el archivo Excel
+        function processExcel(workbook) {
+            const data = {};
+
+            // Recorrer cada hoja del Excel
+            workbook.SheetNames.forEach(sheetName => {
+                const worksheet = workbook.Sheets[sheetName];
+                const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+                // Filtrar filas vacías o incompletas
+                const filteredData = jsonData.slice(1).filter(row => row[1]); // Filtra filas donde la columna "Producto" no esté vacía
+
+                // Convertir los datos de la hoja en un formato útil
+                const items = filteredData.map(row => ({
+                    producto: row[1] || "Sin nombre",        // Columna 1: Producto (si está vacío, usa "Sin nombre")
+                    precio: (row[2] || "0") + " MN",        // Columna 2: Precio (si está vacío, usa "0 MN")
+                    disponibilidad: row[3] || "Desconocido" // Columna 3: Disponibilidad (si está vacío, usa "Desconocido")
+                }));
+
+                // Guardar los datos en el objeto data
+                data[sheetName.toLowerCase()] = items;
+
+                // Depuración: Mostrar los datos cargados
+                console.log(`Datos cargados para la hoja ${sheetName}:`, items);
+            });
+
+            // Generar el contenido de las pestañas
+            generateTabsContent(data);
+        }
+
+        // Función para generar el contenido de las pestañas
+        function generateTabsContent(data) {
+            const container = document.querySelector('.container');
+
+            Object.keys(data).forEach(tab => {
+                if (tab !== 'informacion') { // Evita generar la pestaña de información
+                    const tabContent = document.createElement('div');
+                    tabContent.id = tab;
+                    tabContent.className = 'tab-content';
+
+                    data[tab].forEach(item => {
+                        const menuItem = document.createElement('div');
+                        menuItem.className = 'menu-item';
+
+                        const div = document.createElement('div');
+                        const h2 = document.createElement('h2');
+                        h2.textContent = item.producto;
+                        const p = document.createElement('p');
+                        p.textContent = item.precio;
+
+                        div.appendChild(h2);
+                        div.appendChild(p);
+
+                        const span = document.createElement('span');
+                        span.className = item.disponibilidad.toLowerCase() === 'disponible' ? 'disponible' : 'agotado';
+                        span.textContent = item.disponibilidad;
+
+                        menuItem.appendChild(div);
+                        menuItem.appendChild(span);
+
+                        tabContent.appendChild(menuItem);
+                    });
+
+                    container.appendChild(tabContent);
+                }
+            });
+
+            // Activar la primera pestaña por defecto
+            openTab('cocteles');
+        }
+
+        // Función para cambiar entre pestañas
+        function openTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('.tabs button');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            document.getElementById(tabName).classList.add('active');
+            document.querySelector(`button[onclick="openTab('${tabName}')"]`).classList.add('active');
+        }
+
+        // Cargar el Excel automáticamente al iniciar la página
+        loadExcel();
+    </script>
+
+</body>
+</html>
